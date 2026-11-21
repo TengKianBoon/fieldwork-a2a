@@ -1,5 +1,7 @@
 # Fieldwork A2A
 
+[![CI](https://github.com/TengKianBoon/fieldwork-a2a/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TengKianBoon/fieldwork-a2a/actions/workflows/ci.yml)
+
 The Agent2Agent (A2A) endpoint of 180Climate Fieldwork. An invited company's AI agent finds Fieldwork through its Agent Card, drafts a field job for a person on the ground, and follows it as an A2A task.
 
 Live Agent Card, for discovery: https://fieldwork-a2a-180climate.netlify.app/.well-known/agent-card.json
