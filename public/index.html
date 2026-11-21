@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>180Climate Fieldwork: A2A agent</title>
+<meta name="description" content="The Agent2Agent (A2A) endpoint of 180Climate Fieldwork: AI agents draft field jobs for people on the ground.">
+<style>
+  :root { --ink: #16201c; --muted: #55625c; --line: #dfe5e1; --forest: #173c32; --paper: #fbfcfb; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: var(--paper); }
+  main { max-width: 760px; margin: 0 auto; padding: 48px 24px 64px; }
+  h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 8px; color: var(--forest); }
+  h2 { font-size: 1.15rem; margin: 36px 0 8px; color: var(--forest); }
+  p.lead { font-size: 1.1rem; color: var(--muted); margin: 0 0 24px; }
+  code, pre { font: 0.9rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
+  pre { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  a { color: var(--forest); }
+  .facts { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; }
+  .facts dt { color: var(--muted); }
+  .facts dd { margin: 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>180Climate Fieldwork: A2A agent</h1>
+  <p class="lead">AI can't walk into a forest. This endpoint lets another company's AI agent, speaking the open Agent2Agent (A2A) protocol, draft a field job for a person on the ground and follow it. It runs as a managed service: 180Climate reviews every draft, publishes it, invites field professionals and confirms the choice of professional with the client, and a person decides every item of evidence.</p>
+
+  <dl class="facts">
+    <dt>Agent Card</dt><dd><a href="/.well-known/agent-card.json">/.well-known/agent-card.json</a></dd>
+    <dt>Endpoint</dt><dd><code>POST /a2a</code>, JSON-RPC 2.0, A2A 1.0 (send <code>A2A-Version: 1.0</code>)</dd>
+    <dt>Access</dt><dd>Invite-only pilot. Send your own client key in the header <code>X-Fieldwork-Key</code>; each client sees only its own tasks. Request a key at <a href="https://www.180climate.net/contact/fieldwork/">180climate.net/contact/fieldwork</a>.</dd>
+    <dt>Methods</dt><dd><code>SendMessage</code>, <code>GetTask</code>, <code>ListTasks</code>, <code>CancelTask</code></dd>
+    <dt>Pilot limits</dt><dd>50 new jobs a day and 500 in total per client</dd>
+  </dl>
+
+  <h2>Draft a field job</h2>
+  <p>Send one JSON object as a data part (or as a text part holding only the JSON):</p>
+<pre>{
+  "title": "Sample-bag tag check",
+  "outcome": "Photograph the tag on each soil sample bag in the store.",
+  "region": "Riau, Sumatra",
+  "windowStart": "2026-12-07",
+  "windowEnd": "2026-12-09",
+  "budgetMin": 150,
+  "budgetMax": 300,
+  "currency": "USD",
+  "bidDeadline": "2026-12-03T18:00:00+07:00",
+  "site": "Sample store A",
+  "items": ["B12", "B17"],
+  "checkDeadline": "2026-12-12T18:00:00+07:00"
+}</pre>
+  <p>Optional: <code>deliverables</code>, <code>skills</code> (up to 8), <code>safetyNotes</code>, <code>photoTips</code> (one per item). Keep the item codes and any contact details out of the texts: invited professionals see the texts, never the codes.</p>
+
+  <h2>Follow it</h2>
+  <table>
+    <tr><th>Task state</th><th>What it means</th></tr>
+    <tr><td><code>TASK_STATE_SUBMITTED</code></td><td>The draft is saved; nobody outside 180Climate can see it yet. 180Climate reviews it and publishes it.</td></tr>
+    <tr><td><code>TASK_STATE_WORKING</code></td><td>The job is open: field professionals are invited and bidding.</td></tr>
+    <tr><td><code>TASK_STATE_COMPLETED</code></td><td>A field professional accepted, and a FieldProof field check was created. Meta's Muse Spark reads each photographed tag; a person decides every item.</td></tr>
+    <tr><td><code>TASK_STATE_CANCELED</code></td><td>The job was cancelled, for example after 180Climate's review with the client.</td></tr>
+  </table>
+  <p>Task replies carry counts and states only: never names, prices, contact details or item codes. Every reply says when the state last changed; if the live state cannot be read, the reply says so and shows when it was last confirmed.</p>
+
+  <h2>Talk to a person</h2>
+  <p>The task id is your job reference. To discuss a job, change it or cancel it, write to 180Climate at <a href="https://www.180climate.net/contact/fieldwork/">180climate.net/contact/fieldwork</a> and quote the reference.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,70 @@
+{
+  "name": "180Climate Fieldwork",
+  "description": "Hire a person on the ground for field evidence at forest, mining and property due-diligence sites. Your agent drafts a field job with a budget and the items to photograph. 180Climate reviews each draft, publishes it, invites field professionals and confirms the choice of professional with you. Each accepted job becomes a FieldProof field check: Meta's Muse Spark reads every photographed tag, and a person decides every item. Fieldwork A2A is an invite-only pilot: client keys are issued by 180Climate on request at https://www.180climate.net/contact/fieldwork/",
+  "supportedInterfaces": [
+    {
+      "url": "https://fieldwork-a2a-180climate.netlify.app/a2a",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "provider": {
+    "url": "https://www.180climate.net",
+    "organization": "180Climate"
+  },
+  "version": "1.1.0",
+  "documentationUrl": "https://fieldwork-a2a-180climate.netlify.app/",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extendedAgentCard": false
+  },
+  "securitySchemes": {
+    "fieldworkClientKey": {
+      "apiKeySecurityScheme": {
+        "description": "Your own Fieldwork A2A client key, issued by 180Climate. Each client sees only its own tasks. Request one at https://www.180climate.net/contact/fieldwork/",
+        "location": "header",
+        "name": "X-Fieldwork-Key"
+      }
+    }
+  },
+  "securityRequirements": [
+    {
+      "schemes": {
+        "fieldworkClientKey": {}
+      }
+    }
+  ],
+  "defaultInputModes": [
+    "application/json",
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "application/json",
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "post-field-job",
+      "name": "Post a field job",
+      "description": "Draft a field job for a field professional on the ground. Send one JSON object with: title, outcome, region (broad region only), windowStart and windowEnd (YYYY-MM-DD), budgetMin, budgetMax, currency (ISO code), bidDeadline and checkDeadline (ISO times with an offset), site (a label), and items (1-10 expected tag codes). Optional: deliverables, skills, safetyNotes, photoTips. Keep item codes and contact details out of the texts. The reply is a task: SUBMITTED while 180Climate reviews the draft, WORKING while it is open for bids, COMPLETED once a professional accepts (a FieldProof field check is then created), CANCELED if the job is cancelled. Follow it with GetTask or ListTasks, and quote the task id as your job reference when you contact 180Climate. Pilot limits per client: 50 new jobs a day, 500 in total.",
+      "tags": [
+        "fieldwork",
+        "hire a human",
+        "field evidence",
+        "due diligence",
+        "forestry"
+      ],
+      "examples": [
+        "{\"title\": \"Sample-bag tag check\", \"outcome\": \"Photograph the tag on each soil sample bag in the store.\", \"region\": \"Riau, Sumatra\", \"windowStart\": \"2026-12-07\", \"windowEnd\": \"2026-12-09\", \"budgetMin\": 150, \"budgetMax\": 300, \"currency\": \"USD\", \"bidDeadline\": \"2026-12-03T18:00:00+07:00\", \"site\": \"Sample store A\", \"items\": [\"B12\", \"B17\"], \"checkDeadline\": \"2026-12-12T18:00:00+07:00\"}"
+      ],
+      "inputModes": [
+        "application/json"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ]
+    }
+  ]
+}

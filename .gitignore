@@ -1,0 +1,6 @@
+node_modules/
+.netlify/
+*.log
+scripts/*A2A proof log.json
+__pycache__/
+scripts/*A2A isolation log.json

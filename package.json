@@ -1,0 +1,19 @@
+{
+  "name": "fieldwork-a2a",
+  "private": true,
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "description": "A2A (Agent2Agent v1.0) endpoint for 180Climate Fieldwork",
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.0",
+    "typescript": "^5.6.0"
+  }
+}
