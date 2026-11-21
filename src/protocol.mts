@@ -379,7 +379,7 @@ function core(deps: Deps) {
       task.artifacts = [{
         artifactId: "field-job",
         name: "Field job",
-        description: "The job's state: counts and states only, never names, prices, contacts or item codes.",
+        description: "Job status, title, bid deadline, identifiers and counts, plus selection and freshness information. The artifact omits separate fields for names, prices, contact details, item codes and private links.",
         parts: [{ data, mediaType: "application/json" }],
       }];
     }

@@ -110,10 +110,6 @@ The proof asks for one client key without showing it, drafts one clearly marked 
 
 The isolation check takes two synthetic client keys and confirms that each client reads and lists its own task, and that every attempt on the other client's task is refused with exactly A2A's TaskNotFoundError (`-32001`, `TASK_NOT_FOUND`); an unknown key gets HTTP 401.
 
-## Known issue
-
-The `field-job` artifact description and the service's landing page still say the reply carries "counts and states only". The artifact also carries the requester-supplied title, the bid deadline and identifiers, as listed above. The wording will be corrected in the next release.
-
 ## Status
 
 An invite-only pilot run by 180Climate. Client keys are issued on request at https://www.180climate.net/contact/fieldwork/. FieldProof, the evidence product this service drafts jobs into, is a separate system and is not part of this repository.

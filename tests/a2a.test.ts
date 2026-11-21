@@ -599,7 +599,7 @@ describe("the FieldProof client", () => {
   const view = { jobId: "j_1", status: "accepted", title: "T", bidDeadline: "2030-01-01T00:00:00Z", invited: 1, submitted: 1, selectionPending: false, engaged: true, missionId: "m_1" };
   const stub = (status: number, body: unknown) => async (): Promise<Response> => new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json" } });
 
-  it("keeps counts and states only: the check's requester link and any owner link are dropped", async () => {
+  it("keeps the job view limited: the check's requester link and any owner link are dropped", async () => {
     const fpc = fieldProofClient("https://fp.example", stub(200, { status: view, check: { missionId: "m_1", requesterToken: "SECRET-RT" } }));
     const s = await fpc.jobStatus("j_1", "t");
     assert.ok(s.ok);
